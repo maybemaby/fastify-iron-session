@@ -12,7 +12,24 @@ on:
       - "*.md"
 
 jobs:
-
   build_test:
-    runs-on: []
-    
+    runs-on: [ubuntu-latest]
+    strategy:
+      matrix:
+        node: [18.x, 20.x]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - name: Use Node ${{ matrix.node}}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install
+      - name: Test
+        run: pnpm test
+      - name: Build
+        run: pnpm build
