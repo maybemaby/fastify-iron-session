@@ -1,6 +1,7 @@
 import { type FastifyPluginCallback } from "fastify";
 import { IronSession, SessionOptions, getIronSession } from "iron-session";
 import fp from "fastify-plugin";
+export { type IronSession } from "iron-session";
 
 export interface SessionData {
   [key: string]: any;
