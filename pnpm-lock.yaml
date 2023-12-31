@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  fastify-plugin:
+    specifier: ^4.5.1
+    version: 4.5.1
   iron-session:
     specifier: ^8.0.1
     version: 8.0.1
@@ -16,9 +19,6 @@ devDependencies:
   fastify:
     specifier: ^4.25.2
     version: 4.25.2
-  fastify-plugin:
-    specifier: ^4.5.1
-    version: 4.5.1
   typescript:
     specifier: ^5.3.3
     version: 5.3.3
@@ -665,7 +665,7 @@ packages:
 
   /fastify-plugin@4.5.1:
     resolution: {integrity: sha512-stRHYGeuqpEZTL1Ef0Ovr2ltazUT9g844X5z/zEBFLG8RYlpDiOCIG+ATvYEp+/zmc7sN29mcIMp8gvYplYPIQ==}
-    dev: true
+    dev: false
 
   /fastify@4.25.2:
     resolution: {integrity: sha512-SywRouGleDHvRh054onj+lEZnbC1sBCLkR0UY3oyJwjD4BdZJUrxBqfkfCaqn74pVCwBaRHGuL3nEWeHbHzAfw==}
