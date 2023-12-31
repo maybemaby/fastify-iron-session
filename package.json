@@ -12,17 +12,25 @@
     "bench": "vitest bench",
     "build": "tsc"
   },
-  "keywords": [],
-  "author": "maybemaby",
+  "keywords": [
+    "fastify",
+    "encryption",
+    "session"
+  ],
+  "author": "maybemaby (https://github.com/maybemaby)",
+  "repository": {
+    "url": "https://github.com/maybemaby/fastify-iron-session.git",
+    "type": "git"
+  },
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.10.6",
     "fastify": "^4.25.2",
-    "fastify-plugin": "^4.5.1",
     "typescript": "^5.3.3",
     "vitest": "^1.1.0"
   },
   "dependencies": {
+    "fastify-plugin": "^4.5.1",
     "iron-session": "^8.0.1"
   }
 }

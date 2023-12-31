@@ -1,4 +1,6 @@
 # fastify-iron-session
+![GitHub License](https://img.shields.io/github/license/maybemaby/fastify-iron-session) [![npm](https://img.shields.io/npm/v/fastify-iron-session)](https://www.npmjs.com/package/fastify-iron-session)
+
 
 Fastify plugin for using encrypted sessions through [iron-session](https://github.com/vvo/iron-session?tab=readme-ov-file).
 
