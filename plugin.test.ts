@@ -40,18 +40,19 @@ describe("plugin", () => {
       expect(app.hasPlugin("iron-session")).toBeTruthy();
     });
 
-    it("should be able to register plugin multiple times with different session names", async () => {
+    it("should be able to register plugin with different session names", async () => {
       const app = fastify();
-      await app.register(ironSession, {
-        cookieName: testCookieName,
-        password: testPassword,
-      });
-
-      await app.register(ironSession, {
-        sessionName: "another-session",
-        cookieName: "another-session",
-        password: testPassword,
-      });
+      await app.register(ironSession, [
+        {
+          cookieName: testCookieName,
+          password: testPassword,
+        },
+        {
+          sessionName: "another-session",
+          cookieName: "another-session",
+          password: testPassword,
+        },
+      ]);
 
       expect(app.hasPlugin("iron-session")).toBeTruthy();
     });
