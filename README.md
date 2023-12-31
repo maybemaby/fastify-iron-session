@@ -35,14 +35,33 @@ fastify.register(ironSession, {
 });
 ```
 
+Multiple sessions
+
+```typescript
+// Register multiple sessions using an array of options
+fastify.register(ironSession, [
+  {
+  sessionName: "session1",
+  cookieName: "cookieName1"
+  // ...
+  },
+  {
+    sessionName: "session2",
+    cookieName: "cookieName2"
+    // ...
+  }
+]);
+```
+
 Setting session data 
 ```typescript
 fastify.post("/login", async (req, reply) => {
   // ...Some login logic
-  req.session.id = "abc123";
-  req.session.name = "John Doe";
+  const session = await req.session();
+  session.id = "abc123";
+  session.name = "John Doe";
 
-  await req.session.save();
+  await session.save();
 
   // Return a response
 });
@@ -52,7 +71,7 @@ Deleting session data
 ```typescript
 fastify.post("/logout", async (req, reply) => {
   // ...Some logout logic
-  req.session.destroy();
+  (await req.session()).destroy();
 
   // Return a response
 });
@@ -88,12 +107,11 @@ declare module "fastify-iron-session" {
 
 declare module "fastify" {
   interface FastifyRequest {
-    customSessionName: IronSession<SessionData>;
+    customSessionName: () => Promise<IronSession<SessionData>>;
   }
 }
 ```
 
 ## Todo:
 
-- [ ] Performance improvements (lazy session decorator?)
 - [ ] Nextjs example sharing session

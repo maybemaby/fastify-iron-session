@@ -72,7 +72,7 @@ describe("plugin", () => {
       const _app = setupApp();
 
       _app.get("/session1", async (req, reply) => {
-        expect(req.session).not.toBeNull();
+        expect(await req.session()).not.toBeNull();
 
         return { hello: "world" };
       });
@@ -89,16 +89,17 @@ describe("plugin", () => {
       const _app = setupApp();
 
       _app.get("/session2", async (req, reply) => {
-        req.session.id = "123";
+        const session = await req.session();
+        session.id = "123";
 
-        await req.session.save();
+        await session.save();
 
         return { hello: "world" };
       });
 
       // Will throw an error within the request and return a 500 if the session is not set
       _app.get("/session-check", async (req, reply) => {
-        expect(req.session.id).toBe("123");
+        expect((await req.session()).id).toBe("123");
 
         return { hello: "world" };
       });
@@ -111,7 +112,7 @@ describe("plugin", () => {
       const res2 = await _app.inject({
         method: "GET",
         url: "/session-check",
-        // Nede to pass the cookies from the previous request
+        // Need to pass the cookies from the previous request
         cookies: {
           [testCookieName]: res.cookies[0].value,
         },
