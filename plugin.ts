@@ -9,7 +9,7 @@ export interface SessionData {
 
 declare module "fastify" {
   interface FastifyRequest {
-    session: IronSession<SessionData>;
+    session: () => Promise<IronSession<SessionData>>;
   }
 }
 
@@ -28,20 +28,22 @@ const plugin: FastifyPluginCallback<
 
       sessionNames.set(sessionName, opt);
 
-      fastify.decorateRequest(sessionName, null);
+      fastify.decorateRequest(sessionName, () => null);
     }
   } else {
     const sessionName = opts.sessionName || "session";
     sessionNames.set(sessionName, opts);
-    fastify.decorateRequest(sessionName, null);
+    fastify.decorateRequest(sessionName, () => null);
   }
 
   fastify.addHook("onRequest", async (request, reply) => {
     for (const [sessionName, opts] of sessionNames) {
-      const session = await getIronSession(request.raw, reply.raw, opts);
+      // const session = await getIronSession(request.raw, reply.raw, opts);
 
       // @ts-ignore, end user should be able to create a custom session name and override in declaration
-      request[sessionName] = session;
+      request[sessionName] = async () => {
+        return getIronSession(request.raw, reply.raw, opts);
+      };
     }
 
     // const session = await getIronSession(request.raw, reply.raw, opts);

@@ -20,17 +20,19 @@ describe("benchmarks", () => {
   });
 
   benchAppWithPlugin.get("/save", async (request, reply) => {
-    request.session.id = "123";
+    const session = await request.session();
 
-    await request.session.save();
+    session.id = "123";
+
+    await session.save();
 
     return { hello: "world" };
   });
 
   benchAppWithPlugin.get("/read", async (request, reply) => {
-    console.log(request.session.id);
+    const session = await request.session();
 
-    return { hello: "world" };
+    return { hello: "world", id: session.id };
   });
 
   bench("request with plugin", async () => {
