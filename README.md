@@ -112,6 +112,6 @@ declare module "fastify" {
 }
 ```
 
-## Todo:
+## Usage with Next.js
 
-- [ ] Nextjs example sharing session
+If you're using Nextjs with iron-session already, you can share the same session between Fastify and Nextjs by using the same cookie name and password. You will need to make sure your setup allows sharing cookies. My recommendation if you're not hosting on the same domain is using Next's rewrite config option. You can see an example for this in the [examples folder](examples/with-next/).

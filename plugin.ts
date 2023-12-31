@@ -38,18 +38,12 @@ const plugin: FastifyPluginCallback<
 
   fastify.addHook("onRequest", async (request, reply) => {
     for (const [sessionName, opts] of sessionNames) {
-      // const session = await getIronSession(request.raw, reply.raw, opts);
 
       // @ts-ignore, end user should be able to create a custom session name and override in declaration
       request[sessionName] = async () => {
         return getIronSession(request.raw, reply.raw, opts);
       };
     }
-
-    // const session = await getIronSession(request.raw, reply.raw, opts);
-
-    // @ts-ignore, end user should be able to create a custom session name and override in declaration
-    // request[sessionName] = session;
   });
 
   done();
