@@ -73,13 +73,6 @@
     "skipLibCheck": true /* Skip type checking of declaration files. */,
     "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
   },
-  "include": [
-    "./**/*.ts",
-    "examples/with-next/frontend/src/app/server-logout.tsx"
-  ],
-  "exclude": ["node_modules", "dist", "examples/*"],
-  "ts-node": {
-    "files": true
-  }
-  // "files": ["src/index.d.ts"]
+  "include": ["./**/*.ts"],
+  "exclude": ["node_modules", "dist"]
 }

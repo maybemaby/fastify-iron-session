@@ -1,0 +1,22 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc && node ./dist/index.js",
+    "dev": "tsc && node ./dist/index.js"
+  },
+  "keywords": [],
+  "author": "maybemaby",
+  "license": "ISC",
+  "dependencies": {
+    "fastify": "^4.25.2",
+    "fastify-iron-session": "link:../../.."
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "typescript": "^5"
+  }
+}
