@@ -17,24 +17,37 @@ type IronSessionPluginOptions = SessionOptions & {
   sessionName?: string;
 };
 
-const plugin: FastifyPluginCallback<IronSessionPluginOptions> = (
-  fastify,
-  opts,
-  done
-) => {
+const plugin: FastifyPluginCallback<
+  IronSessionPluginOptions | IronSessionPluginOptions[]
+> = (fastify, opts, done) => {
   const sessionNames = new Map<string, IronSessionPluginOptions>();
 
-  const sessionName = opts.sessionName || "session";
+  if (Array.isArray(opts)) {
+    for (const opt of opts) {
+      const sessionName = opt.sessionName || "session";
 
-  sessionNames.set(sessionName, opts);
+      sessionNames.set(sessionName, opt);
 
-  fastify.decorateRequest(sessionName, null);
+      fastify.decorateRequest(sessionName, null);
+    }
+  } else {
+    const sessionName = opts.sessionName || "session";
+    sessionNames.set(sessionName, opts);
+    fastify.decorateRequest(sessionName, null);
+  }
 
   fastify.addHook("onRequest", async (request, reply) => {
-    const session = await getIronSession(request.raw, reply.raw, opts);
+    for (const [sessionName, opts] of sessionNames) {
+      const session = await getIronSession(request.raw, reply.raw, opts);
+
+      // @ts-ignore, end user should be able to create a custom session name and override in declaration
+      request[sessionName] = session;
+    }
+
+    // const session = await getIronSession(request.raw, reply.raw, opts);
 
     // @ts-ignore, end user should be able to create a custom session name and override in declaration
-    request[sessionName] = session;
+    // request[sessionName] = session;
   });
 
   done();
