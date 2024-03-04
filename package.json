@@ -1,6 +1,6 @@
 {
   "name": "fastify-iron-session",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "iron-session plugin for Fastify",
   "main": "dist/plugin.js",
   "types": "dist/plugin.d.ts",
@@ -24,8 +24,8 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^20.10.6",
-    "fastify": "^4.25.2",
+    "@types/node": "^20.11.24",
+    "fastify": "^4.26.2",
     "typescript": "^5.3.3",
     "vitest": "^1.1.0"
   },
